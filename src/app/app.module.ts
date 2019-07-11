@@ -17,11 +17,23 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { FooterComponent } from './footer/footer.component';
+import { CarouselComponent } from './carousel/carousel.component';
+import { ProductComponent } from './product/product.component';
+import { StarsComponent } from './stars/stars.component';
+import { SearchComponent } from './search/search.component';
 
 @NgModule({
 
   declarations: [
-    AppComponent
+    AppComponent,
+    NavbarComponent,
+    FooterComponent,
+    CarouselComponent,
+    ProductComponent,
+    StarsComponent,
+    SearchComponent
   ],
   imports: [
     // 这两个是angular框架提供的模块，
