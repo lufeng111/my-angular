@@ -26,8 +26,10 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
+
+## 项目目录结构详解
 <!-- 
-项目目录结构详解
+## 项目目录结构详解
   1： .editorconfig 是vscode 的配置文件
   2： .gitignore git的配置文件
   3： e2e 是端到端的测试目录 包含基本的测试桩，是用来作自动化测试的
@@ -42,7 +44,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
  -->
 
-
+## src 目录下的结构
  <!-- 
 src 目录下的结构
   7： app 包含应用的组件和模块
@@ -54,18 +56,16 @@ src 目录下的结构
   13： polyfills.ts 主要是导入一些必要的库，使angular可以正常运行在一些老版本的浏览器中，
   14： styles.scss 这个放整个应用的一些全局的样式，
   15： test.ts 和karma.conf.js一样都是用来作自动化测试的，
- 
   -->
 
+## app核心内容
   <!-- 
   app
     1: app.component.ts 组件，
     2: app.module.ts 模块
-    3: 
-    4: 
-  
    -->
 
+## 组件必备元素
    <!-- 
   组件必备元素：@component装饰器，controller 控制器，template 模板
     @Component() 是组件元数据装饰器，用来告知angular框架如何处理一个 typescript 类，@Component包含多个属性，
@@ -78,6 +78,7 @@ src 目录下的结构
     绝大多数的页面逻辑就是写在控制器中的，控制器通过数据绑定与模板通讯，模板展现控制器上的数据，控制器处理模板上触发的事件，
     -->
 
+## 组件可选的可注入对象
    <!-- 
   组件可选的可注入对象
     输入属性 @Inputs() ： 接收web传递的数据的，输入属性使父组件可以直接传递数据给子组件
@@ -87,9 +88,17 @@ src 目录下的结构
     动画 animations : angular提供一个动画包，来创建与组件相关的动画效果，如淡入淡出等
     输出属性 @Outputs ： 和@Inputs输入属性时相对的，用来定义一些其他组件可能感兴趣的事件，或者用来在组件间传递数据
     -->
-   <!--  -->
-   <!--  -->
 
+  ## 启动angular应用  
+   <!-- 
+   1： 启动时加载了那个页面
+        启动index.html页面 "index": "src/index.html", 
+   2： 启动时加载了哪些脚本
+        加载main.ts文件， "main": "src/main.ts",
+   3： 这些脚本做了什么事
+        
+   
+    -->
    
     
     
