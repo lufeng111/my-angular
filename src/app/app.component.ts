@@ -41,5 +41,8 @@ export class AppComponent {
   angular支持双向数据绑定，双向数据绑定让模板的各个部分和控制器的各个部分相互作用的一个机制，我们在html模板中添加绑定标记，告诉angular如何把两者联系起来
   这种用双大括号括起来的title属性，就是最常见的把组件中的值绑定到模板中的一种常用方法，叫插差值表达式，在浏览器运行时，app.component.ts中title属性的值会替换掉双大括号里面的title
   */
-  title = 'my-app';
+  title = 'angular测试';
+
+
+
 }

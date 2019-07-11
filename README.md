@@ -96,10 +96,47 @@ src 目录下的结构
    2： 启动时加载了哪些脚本
         加载main.ts文件， "main": "src/main.ts",
    3： 这些脚本做了什么事
-        
-   
+        详解看main.ts
     -->
    
+  ## angular如何使第三方类库 jquery 和 bootstrap
+  <!-- 
+  第一步：将第三方类库安装到本地
+    在当前目录下执行 
+    npm install jquery --save ，
+    npm install bootstrap --save ，
+    其中--save意思是jquery依赖放到package.json这个文件中,安装完成之后会在jquery这个包放到node_modules中，然后在package.json中加入jquery的安装版本号
+  第二步：把这两个库引到项目中去
+    需要修改angular.json文件，在angular.json文件的app("prefix": "app")下的 
+            "styles": [
+              "src/styles.scss",
+              "../node_modules/bootstrap/dist/css/bootstrap.css"
+            ],
+            "scripts": [
+              "../node_modules/jquery/dist/jquery.js",
+              "../node_modules/bootstrap/dist/js/bootstrap.js"
+            ]
+  引入这两个文件
+  注意： 直接在文件中使用jquery的 $ 符号，是没办法识别的，因为jquery是javascript的东西，typescript是没办法直接用的，
+  这里需要用到typescript的类型描述文件，才能识别 $ 符号，
+  在本地安装typescript类型描述文件 
+    npm install @types/jquery --save-dev
+    npm install @types/bootstrap --save-dev
+  这两个文件的作用是使typescript能够识别javascript语法
+    
+  第三步：
+  
+   -->
+
+   ## 安装依赖过程中，--save和--save-dev的区别
+   <!-- 
+      --save 表示安装的依赖在开发和发布时都需要： 指将包信息添加到dependencies
+      --save-dev 表示安装的依赖在开发时需要： 指将包含信息添加到devDependencies
+    -->
+  ## angular的设计目标
+  <!-- 1：帮开发人员方便的开发出可重用的组件 -->
+
+  <!--  -->
     
     
 
