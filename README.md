@@ -137,6 +137,21 @@ src 目录下的结构
   <!-- 1：帮开发人员方便的开发出可重用的组件 -->
   ## angular 生成新的组件
   <!-- ng g component 组件名（app目录下文件的名字） -->
+  ## 在最新版本angualr中引入bootstrap的样式
+  <!-- 
+  注意：在最新版本的angular中按照上面方式引入jquery和bootstrap 会报错
+  引入bootstrap样式时
+  第一种： 找到index.html直接添加样式引用，<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+
+  第二种： 打开Angular.json文件找到 project->architect->builder->options 下的style和scripts两个配置节。并将bootstrap的样式引入到styles中。由于angular只能引用bootstrap样式，所以scripts不需要引用bootstrap相关脚本(引用了也不生效)。
+   "styles": [
+              "src/styles.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css"
+            ],即可
+
+  
+   -->
+
 
   <!--  -->
     
