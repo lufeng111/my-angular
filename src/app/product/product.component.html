@@ -1,1 +1,17 @@
-<p>product works!</p>
+<!--
+  *ngFor 是angular循环指令，循环product组件中的products数组，把products中的每一项给到变量product
+  用插值表达式取出这一项
+  -->
+<div *ngFor="let product of products" class="col-sm-4 col-md-4 col-lg-4">
+    <div class="thumbnail">
+      <img src="http://placehold.it/320x150" alt="商品图片">
+      <div class="caption">
+        <h4 class="pull-right">{{product.price}}元</h4>
+        <h4><a>{{product.title}}</a></h4>
+        <p>{{product.desc}}</p>
+      </div>
+      <div>
+        <app-stars></app-stars>
+      </div>
+    </div>
+  </div>
