@@ -12,6 +12,7 @@ export class ProductComponent implements OnInit {
   */
 // products是一个数组，每一个数组的结构和Product类的数据结构是一一对应的
   private products: Array<Product>;
+  private imgUrl = "http://placehold.it/320x150";
 
   constructor() { }
 /*

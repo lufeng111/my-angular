@@ -1,17 +1,26 @@
 <!--
   *ngFor 是angular循环指令，循环product组件中的products数组，把products中的每一项给到变量product
   用插值表达式取出这一项
+
+  数据绑定的方式：
+    第一种：插值表达式：直接把控制器对象上的一个属性展示在页面上，用双大括号括起来
+    第二种：属性绑定：比如说img的src属性不是写死的，而是和后台绑定起来的
+      把<img src="http://placehold.it/320x150" alt="商品图片">修改成
+      <img [src]="http://placehold.it/320x150" alt="商品图片">
+    第三种：样式绑定：看starts组件
   -->
-<div *ngFor="let product of products" class="col-sm-4 col-md-4 col-lg-4">
-    <div class="thumbnail">
-      <img src="http://placehold.it/320x150" alt="商品图片">
-      <div class="caption">
-        <h4 class="pull-right">{{product.price}}元</h4>
-        <h4><a>{{product.title}}</a></h4>
-        <p>{{product.desc}}</p>
-      </div>
-      <div>
-        <app-stars></app-stars>
-      </div>
-    </div>
+  <div class="row">
+      <div *ngFor="let product of products" class="col-sm-4 col-md-4 col-lg-4">
+          <div class="thumbnail">
+            <img src="imgUrl" alt="商品图片">
+            <div class="caption">
+              <h4 class="pull-right">{{product.price}}元</h4>
+              <h4><a>{{product.title}}</a></h4>
+              <p>{{product.desc}}</p>
+            </div>
+            <div>
+              <app-stars [rating]="product.rating"></app-stars>
+            </div>
+          </div>
+        </div>
   </div>

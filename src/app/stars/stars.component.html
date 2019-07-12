@@ -1,1 +1,18 @@
-<p>stars works!</p>
+<!--
+  glyphicon-star 实心星星
+  glyphicon-star-empty 空心星星
+
+ -->
+ <!--
+   数据绑定：样式绑定
+   把空心样式glyphicon-star-empty提取出来，样式之前绑定的是一个class是说这里绑定的是一个css样式，这个css样式的值要绑到star这个变量上
+   如果star是true,这个样式glyphicon-star-empty就会绑到span标签上，如果是false就不会绑到这个标签上
+  -->
+<p>
+  <span *ngFor="let star of stars" class="glyphicon glyphicon-star glyphicon-star-empty"
+  [class.glyphicon-star-empty]="star"
+  ></span>
+  <span>{{rating}}星</span>
+</p>
+
+<!-- <div class="glyphicon glyphicon-star" style="margin-bottom: 20px;"></div> -->
