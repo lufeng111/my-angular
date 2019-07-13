@@ -23,6 +23,7 @@ import { CarouselComponent } from './carousel/carousel.component';
 import { ProductComponent } from './product/product.component';
 import { StarsComponent } from './stars/stars.component';
 import { SearchComponent } from './search/search.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
 
@@ -33,12 +34,14 @@ import { SearchComponent } from './search/search.component';
     CarouselComponent,
     ProductComponent,
     StarsComponent,
-    SearchComponent
+    SearchComponent,
+    HomeComponent
   ],
+  // 这两个是angular框架提供的模块，
   imports: [
-    // 这两个是angular框架提供的模块，
-    BrowserModule,
     // 这是开发web应用的必选依赖，这是浏览器的一个模块，因为应用最终要运行在浏览器中
+    BrowserModule,
+    // 生成AppRoutingModule模块中的所有路由配置导入主模块中
     AppRoutingModule
   ],
   // providers 默认情况下的空的，用来声明模块中提供了什么服务，只能声明服务
