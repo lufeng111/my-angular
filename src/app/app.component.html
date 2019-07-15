@@ -13,16 +13,20 @@
     <!--/左侧-->
     <!--右侧-->
     <div class="col-md-9">
-      <div class="row carousel-container">
+
+      <!-- <div class="row carousel-container"> -->
         <!--轮播图-->
-        <app-carousel></app-carousel>
+        <!-- <app-carousel></app-carousel> -->
         <!--/轮播图-->
-      </div>
-      <div class="row">
+      <!-- </div> -->
+      <!-- <div class="row"> -->
         <!--商品信息-->
-        <app-product></app-product>
+        <!-- <app-product></app-product> -->
         <!--/商品信息-->
-      </div>
+      <!-- </div> -->
+
+      <!-- 因为这一部分封装到home组件中，所以这个部分改成插座,接下来在 product.componnet 增加路由链接 -->
+        <router-outlet></router-outlet>
     </div>
     <!--/右侧-->
   </div>
@@ -37,8 +41,5 @@
 
 
  -->
-<a >主页</a>
-<a >商品详情</a>
-<router-outlet></router-outlet>
 
 

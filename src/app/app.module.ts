@@ -24,6 +24,16 @@ import { ProductComponent } from './product/product.component';
 import { StarsComponent } from './stars/stars.component';
 import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
+import { ProdectDetailComponent } from './prodect-detail/prodect-detail.component';
+import { Route } from '@angular/compiler/src/core';
+import {Routes, RouterModule} from '@angular/router';
+
+// 所有路由的信息都是在模块层配置的，组件本身是不知道路由信息的
+const routeConfig: Routes = [
+  {path: '', component: HomeComponent},
+  {path: 'product/:prodTitle', component: ProdectDetailComponent},
+];
+// 注意路由声明完配置完路由，要在imports把路由配置注入到模块中
 
 @NgModule({
 
@@ -35,14 +45,17 @@ import { HomeComponent } from './home/home.component';
     ProductComponent,
     StarsComponent,
     SearchComponent,
-    HomeComponent
+    HomeComponent,
+    ProdectDetailComponent
   ],
   // 这两个是angular框架提供的模块，
   imports: [
     // 这是开发web应用的必选依赖，这是浏览器的一个模块，因为应用最终要运行在浏览器中
     BrowserModule,
     // 生成AppRoutingModule模块中的所有路由配置导入主模块中
-    AppRoutingModule
+    AppRoutingModule,
+    // 把路由配置注入到主模块中，因为AppModule 是根模块，所以用到forRoot，如果是子模块，就用forChild()来注入
+    RouterModule.forRoot(routeConfig)
   ],
   // providers 默认情况下的空的，用来声明模块中提供了什么服务，只能声明服务
   providers: [],
