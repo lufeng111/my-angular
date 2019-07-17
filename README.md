@@ -262,8 +262,84 @@ providers: [{provide: ProductService, useClass: AnotherProductService}]
 依赖注入的第二个好处： 可测性
 当真实的对象还不可用时，可以方便的注入一个虚拟的对象来测试程序，
 假设为应用添加一个登陆功能，创建一个LoginComponnet 组件，让用户填写用户名和密码，LoginComponnet 组件也需要依赖一个login服务，login服务需要连接一个身份认证服务器，并且检查用户提供的用户名，密码是否正确，但是身份认证服务器是另一个部门开发的，还没开发好，但是LoginComponnet 组件已经开发好了，没法测试，这时依赖注入可以很好地解决这个问题： 可以创建一个 MockLoginService 这个服务并不真正的连接认证服务器，而是另外编码一段逻辑判断是否可以认证登录，例如只有用户名是admin 密码是1234时，才可以认证登录，其他情况都返回用户名和密码错误，然后使用依赖注入将这个 MockLoginService 注入到LoginComponnet 组件，等认证服务器开发好了，只需要改一行代码 providers的属性，就可以让 angular 注入真正的loginservice ,提高可测试行
-
-
-
  -->
+
+ ## angular 如何实现依赖注入
+ <!-- 
+ 这主要涉及到两个概念 注入器 和 提供器
+ 注入器：constructor(private productService: ProductService){...}
+ 提供器： providers:[ProductService] => providers:[{provide:ProductService, useClass: ProductService}]
+ 当provide 和useClass的类型都是ProductService 可以简写成这个样providers:[ProductService]
+
+ 注入器：
+  每一个组件都有一个注入器，负责注入组件需要的对象，注入器是angular 提供的一个服务类，一般情况下不需要直接调用注入器的方法，注入器会自动通过组件的构造函数将组件所需的对象注入进组件，例如：
+  constructor(private productService: ProductService){...}
+  constructor这个就是组件的构造函数，在这个构造函数中声名private我们需要的 productService 这样一个属性，在这个属性上我们指明他的
+  类型是 ProductService ,angular 在看到这样一个构造声明的时候，就会在整个应用中去寻找 ProductService 的实例，如果能找到这个实例，就会把
+  ProductService 这个实例注入到productService这个对象里面去，直接使用就可以了，为了让注入器知道需要被注入的对象如何实例化：这个ProductService怎样产生这个ProductService ，你需要指定提供器，
+
+提供器：providers:[ProductService] => providers:[{provide:ProductService, useClass: ProductService}]
+  一般我们会通过组件或者模块的providers属性来声明provide(像这样[ProductService]),在这个声明里provide 指定了提供器的token，useClass 说明实例化的方式是new ,new一个 ProductService ，而这个token 就是 在构造函数中constructor(private productService: ProductService){...} 声明的属性productService的一个类型 ProductService，当我在构造函数中声明我需要一个ProductService类型的对象的时候，他会去找token对应的productService，也就是找provide:ProductService这样一个provide的声明，他看到这个声明写的是useClass: ProductService, 他就会new一个ProductService放到 这里来constructor(private productService: ProductService){...}，如果这样写
+  providers:[{provide:ProductService, useClass: AnotherProductService}] 那么在构造函数中constructor(private productService: ProductService){...}声明我需要的ProductService这样一个token的时候，new出来的东西就是AnotherProductService，所以构造函数声明的类型productService: ProductService和提供器里面provide的token（provide:ProductService）这两个是一致的，根据token的类型来匹配要注入的对象和提供器的，然后根据提供器的useClass属性来实例化具体的一个类，这里useClass: ProductService指定的是什么类 ，真正实例化的就是什么类
+
+  最后我们还可以通过一个工厂方法useFactory来返回一个实例化对象，把工厂方法返回的实例{...}注入到ProductService属性中，
+  providers:[{provide:ProductService, useFactory: () => {...}}]
+  在工厂函数中还可以对实例化对象ProductService 做一些初始化的操作，
+ 
+  -->
+
+  ## 依赖注入：重构在线竞拍
+  <!-- 
+  1： 编写ProductService, 包含3个方法：getProducts(), getProduct(id), 以及 getCommentsForProduct(id),
+  2: 修改路由配置，在商品列表进入商品详情时不再传递商品名称，改为传递商品ID 
+  3: 注入ProductService 并使用其服务
   
+   -->
+  ## 数据绑定 响应式编程 管道
+  <!-- 
+  数据绑定：双向数据绑定
+
+  响应式编程：和angular关系不大，是由rxjs这个框架实现的，angular集成rxjs并且将一些特性建立在响应式编程的基础上，所以需要对响应式编程有一个初步的理解，才能进一步学习与之相关的特性，
+
+  管道： 是 angular 用来格式化模板输出的一种可重用对象，
+
+   -->
+   ## 数据绑定
+   <!-- 
+   下面是数据绑定的三种方式：
+   <h1>{{productTitle}}</h1>
+   使用插值表达式将一个表达式的值显示在模板上
+   
+   <img [src] = "imgUrl">
+   使用方括号将html标签上的一个属性绑定到一个表达式上
+   
+   <button (click)="toProductDetail()">商品详情</button>
+   使用小括号将组件控制器的一个方法绑定到模板上一个事件的处理器
+
+   angular 默认的数据绑定是单向的数据绑定，单向是指：要么将控制器上数据的变化显示在模板上，要么将模板上的事件绑定到组件控制器的方法上，
+   angular1默认是双向数据绑定，当标签h1的内容发生变化时，productTitle这个属性的值也会发生变化，这也是angular1在处理复杂页面性能的原因，因为angular1 会在页面上维护一个存有所有数据绑定表达式的列表，浏览器事件发生时，angular1会反复检查这个列表，直到确认所有的数据都已经同步，这个过程是非常耗性能的，在angular 中默认的数据绑定方式为单向数据绑定，但是可以通过明确指定的方式，来实现数据双向绑定，也就是说双向数据绑定变成一个可选项而不是默认行为
+
+   数据绑定的几种形式：
+   事件绑定
+   dom属性绑定
+   html属性绑定
+   双向数据绑定
+    -->
+  ## 事件绑定
+  <!-- 
+  <input (input)="onInputEvent($event)">
+  ()小括号表示这是一个事件绑定，
+  (input)中的input是事件名称，
+  $event 浏览器事件对象
+  onInputEvent($event) 组件方法名称
+  "onInputEvent($event) 当事件发生时执行的表达式，这个表达式是组件控制性中的一个方法
+  当小括号中指定的事件被触发时，等号右侧双引号中的表达式会被执行，
+  所以每次(input)这个事件被触发时，这个onInputEvent()方法就会被调用，如果处理事件的方法onInputEvent()需要了解input事件的属性，就给这个处理事件的方法添加一个$event 参数，这个参数$event 是一个标准的浏览器事件对象，它的target属性高指向产生事件的dom 节点，也就是input节点，
+  这里有两点需要注意：
+  第一：等号右侧的表达式可以不是一个函数调用，也可以是一个属性赋值，想这个样子
+  <button (click)="saved = true"></button> ,表示当我点击时组件的saved属性会被设为true, 
+  第二点：被绑定的事件可以是标准的DOM事件，也可以是任意的自定义事件，
+  
+   -->
+
+
